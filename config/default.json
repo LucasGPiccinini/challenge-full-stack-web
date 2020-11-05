@@ -1,0 +1,9 @@
+{
+    "db":{
+        "host":"localhost",
+        "user":"lucas",
+        "password":"pxvt78md",
+        "database":"grupoA",
+        "port":"3333"
+    }
+}
