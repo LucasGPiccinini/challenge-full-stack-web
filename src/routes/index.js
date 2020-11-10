@@ -3,7 +3,8 @@ const router = Router()
 const conn = require('../../db')
 
 const instances = {
-    users: require('../Users')
+    users: require('../Users'),
+    student: require('../Students')
 }
 
 router.post('/:subject/:action', async (req, res) =>{
