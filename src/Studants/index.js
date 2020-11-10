@@ -1,9 +1,11 @@
 'use strict'
 
 const {createStudant} = require('./createStudant')
+const {updateStudant} = require('./updateStudant')
 
 const actions = {
     insert: createStudant,
+    update: updateStudant,
 }
 
 module.exports = async (action, conn, data) =>{

@@ -1,3 +1,5 @@
+'use strict'
+
 const sql = `
 UPDATE users_grupoa
    SET name = $1,

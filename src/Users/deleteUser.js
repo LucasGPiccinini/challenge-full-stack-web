@@ -1,3 +1,5 @@
+'use strict'
+
 const sql = `
 DELETE FROM users_grupoa
  WHERE id = $1
