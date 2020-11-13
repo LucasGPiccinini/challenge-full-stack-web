@@ -1,4 +1,5 @@
 {
+    "serverPort":3002,
     "db":{
         "host":"localhost",
         "user":"lucas",

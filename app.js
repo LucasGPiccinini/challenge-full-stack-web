@@ -1,3 +1,4 @@
-const app = require('./src')
+const app = require('./server/src')
+const config = require('config')
 
-app(3002)
+app(config.get('serverPort'))
