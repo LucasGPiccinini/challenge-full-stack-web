@@ -1,7 +1,7 @@
 'use strict'
 const { loadUserByEmail } = require('../Users/loadUserByEmail')
 const { loadUserByToken } = require('../Users/loadUserByToken')
-const { updateUser } = require('../Users/updateUser')
+const { setToken } = require('../Users/setToken')
 const { createToken } = require('../util/encoders')
 const { extrectEmailAndPws, extrectToken } = require('../util/extractors')
 
@@ -15,7 +15,7 @@ const login = async(conn, data) => {
         if (!user) throw new Error('User not exist!')
         if (header.password != user.password)  throw new Error('Invalid password!')
         user.token = createToken(data)
-        await updateUser(conn, user)
+        await setToken(conn, user)
         delete user.password
         return {
             messsage:` Welcome ${user.name}!`,
@@ -33,7 +33,7 @@ const logout = async(conn, data) => {
         let user = await loadUserByToken(conn, extrectToken(data.authorization))
         if(!user) throw new Error('User is no longer logged in!')
         delete user.token
-        return await updateUser(conn, user)
+        return await setToken(conn, user)
     } catch (error) {
         throw error
     }
