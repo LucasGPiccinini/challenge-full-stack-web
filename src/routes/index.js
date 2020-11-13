@@ -1,11 +1,11 @@
 const { Router } = require('express')
 const router = Router()
 const conn = require('../db')
-const login = require('../Login')
+const login = require('../App/Login')
 
 const instances = {
-    users: require('../Users'),
-    student: require('../Students'),
+    users: require('../App/Users'),
+    student: require('../App/Students'),
 }
 
 router.post('/:subject/:action', async (req, res) =>{
