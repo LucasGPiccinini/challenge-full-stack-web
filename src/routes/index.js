@@ -2,19 +2,12 @@ const { Router } = require('express')
 const router = Router()
 const conn = require('../db')
 const login = require('../App/Login')
+const { validateTokenHandler } = require('../App/hendlers/validateTokenHandler')
 
 const instances = {
     users: require('../App/Users'),
     student: require('../App/Students'),
 }
-
-router.post('/:subject/:action', async (req, res) =>{
-    try {
-        res.send({data: await instances[req.params.subject](req.params.action, conn, req.body)}) 
-    } catch (error) {
-        res.status(500).send({error:error.message})
-    }
-})
 
 router.get('/login/:action',  async (req, res) =>{
     try {
@@ -24,5 +17,14 @@ router.get('/login/:action',  async (req, res) =>{
         res.status(500).send({error:error.message})
     }
 })
+
+router.post('/:subject/:action', validateTokenHandler, async (req, res) =>{
+    try {
+        res.send({data: await instances[req.params.subject](req.params.action, conn, req.body)}) 
+    } catch (error) {
+        res.status(500).send({error:error.message})
+    }
+})
+
 
 module.exports = router

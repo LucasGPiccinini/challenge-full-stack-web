@@ -1,5 +1,5 @@
 'use strict'
-const { loadUserByEmail } = require('../Users/loaduserByEmail')
+const { loadUserByEmail } = require('../Users/loadUserByEmail')
 const { loadUserByToken } = require('../Users/loadUserByToken')
 const { updateUser } = require('../Users/updateUser')
 const { createToken } = require('../util/encoders')

@@ -5,5 +5,9 @@
         "password":"pxvt78md",
         "database":"grupoA",
         "port":"3333"
-    }
+    },
+    "ignoredURIs":[
+        "/users/insert",
+        "/login/in"
+    ]
 }

@@ -3,8 +3,12 @@
 const { decodeBase64 } = require('./encoders')
 
 const extrectEmailAndPws = (code) => {
-    const [email, password] = decodeBase64(code.split(' ')[1]).split(':')
-    return {email:email, password:password}
+    try {
+        const [email, password] = decodeBase64(code.split(' ')[1]).split(':')
+        return {email:email, password:password}
+    } catch (error) {
+        throw new Error('Inconsistent credentials!')
+    }
 }
 
 const extrectToken = (code) => {
