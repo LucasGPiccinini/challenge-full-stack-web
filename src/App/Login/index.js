@@ -2,7 +2,8 @@
 const { loadUserByEmail } = require('../Users/loaduserByEmail')
 const { loadUserByToken } = require('../Users/loadUserByToken')
 const { updateUser } = require('../Users/updateUser')
-const { extrectEmailAndPws, createToken, extrectToken } = require('./access')
+const { createToken } = require('../util/encoders')
+const { extrectEmailAndPws, extrectToken } = require('../util/extractors')
 
 
 const login = async(conn, data) => {
