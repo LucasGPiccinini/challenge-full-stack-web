@@ -11,7 +11,7 @@ SELECT I.STUDENT_REGISTER,
   	   USERS_GRUPOA U
  WHERE U.ID = I.ID_USER
 `
-module.exports.loadAllstudents = async (conn) => {
+module.exports.loadAllStudents = async (conn) => {
     try {
         const students = await conn.query(sql)
         return {

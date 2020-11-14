@@ -3,13 +3,13 @@
 const {createStudent} = require('./createStudent')
 const {updateStudent} = require('./updateStudent')
 const {deleteStudent} = require('./deleteStudent')
-const { loadAllstudents } = require('./loadAllstudents')
+const { loadAllStudents } = require('./loadAllStudents')
 
 const actions = {
     insert: createStudent,
     update: updateStudent,
     delete: deleteStudent,
-    loadAll: loadAllstudents
+    loadAll: loadAllStudents
 }
 
 module.exports = async (action, conn, data) =>{
