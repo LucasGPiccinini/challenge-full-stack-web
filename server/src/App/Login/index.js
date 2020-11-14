@@ -12,7 +12,7 @@ const login = async(conn, data) => {
         const header = extrectEmailAndPws(data.authorization)
         if (!header.email) throw new Error('Invalid email!')
         let user = await loadUserByEmail(conn, header.email)
-        if (!user) throw new Error('User not exist!')
+        if (!user.id) throw new Error('User not exist!')
         if (header.password != user.password)  throw new Error('Invalid password!')
         user.token = createToken(data)
         await setToken(conn, user)

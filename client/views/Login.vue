@@ -94,6 +94,7 @@ export default {
         this.showMessage = true
         this.messageContent = response.message
         this.colorMessage = "green"
+        this.$router.push('/dashboard')
     },
     loginError(response) {
         this.showMessage = true
