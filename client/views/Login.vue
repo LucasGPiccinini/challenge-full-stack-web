@@ -50,7 +50,10 @@
 </template>
 
 <script>
-import Login from '../src/app/login'
+
+import { createNamespacedHelpers } from 'vuex'
+
+const access = createNamespacedHelpers('access')
 
 export default {
   name: "login",
@@ -77,21 +80,24 @@ export default {
     };
   },
   methods: {
+
+    ...access.mapActions(['login']),
+    
     async getIn() {
         this.loading = true
-        await Login(this.access)
+        await this.login(this.access)
             .then(this.successLogin)
             .catch(this.loginError)
         this.loading = false
     },
     successLogin(response) {
         this.showMessage = true
-        this.messageContent = response.data.message
+        this.messageContent = response.message
         this.colorMessage = "green"
     },
     loginError(response) {
         this.showMessage = true
-        this.messageContent = response.response.data.error
+        this.messageContent = response.message
         this.colorMessage = "red"
     }
   },
