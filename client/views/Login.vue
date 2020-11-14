@@ -43,19 +43,22 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-snackbar v-model="error" color="error" top right>
-        Invalid email or password!
+    <v-snackbar v-model="showMessage" :color="colorMessage" top right>
+        {{messageContent}}
     </v-snackbar>
   </v-container>
 </template>
 
 <script>
+import Login from '../src/app/login'
+
 export default {
   name: "login",
   data() {
     return {
       loading: false,
       valid: false,
+      test:'',
       access: {
         email: "",
         password: "",
@@ -68,11 +71,29 @@ export default {
         },
       },
       logo: require("../src/assets/logo.png"),
-      error: null,
+      showMessage: null,
+      messageContent: null,
+      colorMessage: null
     };
   },
   methods: {
-    getIn() {},
+    async getIn() {
+        this.loading = true
+        await Login(this.access)
+            .then(this.successLogin)
+            .catch(this.loginError)
+        this.loading = false
+    },
+    successLogin(response) {
+        this.showMessage = true
+        this.messageContent = response.data.message
+        this.colorMessage = "green"
+    },
+    loginError(response) {
+        this.showMessage = true
+        this.messageContent = response.response.data.error
+        this.colorMessage = "red"
+    }
   },
 };
 </script>

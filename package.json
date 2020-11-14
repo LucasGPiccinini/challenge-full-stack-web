@@ -19,6 +19,7 @@
   "homepage": "https://github.com/LucasGPiccinini/challenge-full-stack-web#readme",
   "dependencies": {
     "config": "^3.3.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "md5": "^2.3.0",
     "pg": "^8.4.2"

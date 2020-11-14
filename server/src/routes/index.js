@@ -12,7 +12,7 @@ const instances = {
 router.get('/login/:action',  async (req, res) =>{
     try {
         const teste = await login(req.params.action, conn, req.headers)
-        res.send({data:teste}) 
+        res.send(teste) 
     } catch (error) {
         res.status(500).send({error:error.message})
     }

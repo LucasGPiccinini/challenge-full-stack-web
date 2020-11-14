@@ -18,7 +18,7 @@ const login = async(conn, data) => {
         await setToken(conn, user)
         delete user.password
         return {
-            messsage:` Welcome ${user.name}!`,
+            message:` Welcome ${user.name}!`,
             data:user
         }
     } catch (error) {
