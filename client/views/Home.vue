@@ -32,12 +32,39 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
+            <template v-slot:append>
+                <v-list>               
+                    <v-list-item @click="exitDialog = !exitDialog">
+                        <v-list-item-icon>
+                            <v-icon>mdi-exit-to-app</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                Quit
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </template>
         </v-navigation-drawer>
         <v-container class="pa-0 ma-0" fluid>
             <v-slide-x-transition hide-on-leave>
                 <router-view></router-view>
             </v-slide-x-transition>
         </v-container>
+        <v-dialog v-model="exitDialog" max-width="300">
+            <v-card>
+                <v-card-title class="headline">Good bye</v-card-title>
+                <v-card-text v-if="user">
+                    {{ user.name }}, are you sure want to quit?
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn outlined text @click="exitDialog = !exitDialog">no</v-btn>
+                    <v-btn outlined color="error" text @click="exit()">yes</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -51,14 +78,23 @@ export default {
     data() {
         return {
             drawer: false,
-            mini: false
+            mini: false,
+            exitDialog: false
         }
     },
     computed: {
         ...access.mapGetters(['user']),
     },
+    methods: {
+        ...access.mapActions(['logout']),
+
+        async exit() {
+            await this.logout()
+            this.$router.push('/login')
+        }
+    },
     async mounted() {
-        if (!this.user) this.$router.push('/login')
+        if (!this.user.token) this.$router.push('/login')
     },
 }
 </script>

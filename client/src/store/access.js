@@ -1,4 +1,5 @@
 import getIn from '../app/login'
+import getOut from '../app/logout'
 
 const state = {
     user: JSON.parse(localStorage.getItem('user') || 'null'),
@@ -20,7 +21,19 @@ const actions = {
         } catch(error) {
             throw new Error(error.response.data.error)
         }
-    }
+    },
+
+    async logout({ commit }) {
+        try {
+            await getOut()
+            localStorage.clear()
+            commit('USER', null)
+            return true
+        } catch (error) {
+            throw new Error
+        }
+    },
+
 }
 
 const mutations = {

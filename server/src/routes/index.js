@@ -14,7 +14,7 @@ router.get('/login/:action',  async (req, res) =>{
         const teste = await login(req.params.action, conn, req.headers)
         res.send(teste) 
     } catch (error) {
-        res.status(500).send({error:error.message})
+        res.status(401).send({error:error.message})
     }
 })
 
