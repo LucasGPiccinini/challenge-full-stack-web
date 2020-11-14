@@ -12,7 +12,6 @@
 //         "password": "0"
 //     }
 
-//     // console.log(btoa(`${user.email}:${user.password}`)
 
 //     request.get({url : urlBase + "/login/in", headers:{authorization: 'Basic ' + Buffer.from(`${user.email}:${user.password}`).toString('base64')}}, (error, response, body) =>{
 
