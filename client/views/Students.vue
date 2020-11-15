@@ -152,6 +152,7 @@ import { createNamespacedHelpers } from 'vuex'
 import loadAllStudents from '../src/app/students/loadAll'
 import getStudent_register from '../src/app/students/getStudent_register'
 import createStudent from '../src/app/students/createStudent'
+import updateStudent from '../src/app/students/updateStudent'
 
 const access = createNamespacedHelpers('access')
 
@@ -251,7 +252,10 @@ export default {
         async save () {
             this.loading = true
             if (this.editedIndex > -1) Object.assign(this.students[this.editedIndex], this.editedItem)
-            else await createStudent(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent)
+            else this.newUser ? 
+                await createStudent(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent):
+                await updateStudent(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent)
+            this.newUser = false
             this.loading = false
             this.close()
         },

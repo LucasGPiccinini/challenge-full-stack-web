@@ -1,6 +1,9 @@
 import axios from 'axios'
 import config from './config'
 
+const watch = config => {
+    return config
+}
 
 const setAuthRequest = config => {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
@@ -15,8 +18,16 @@ const createHttp = ({ baseURL }) => {
     return http
 }
 
+const notAuthorized = err => {
+    if (err.response.status === 401) localStorage.clear()
+    return Promise.reject(err)
+}
+
 export const request = createHttp({
     baseURL: config.baseURL,
 })
 
+
 request.interceptors.request.use(setAuthRequest)
+
+request.interceptors.response.use(watch, notAuthorized)
