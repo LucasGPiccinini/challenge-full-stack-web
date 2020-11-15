@@ -14,9 +14,7 @@ SELECT I.STUDENT_REGISTER,
 module.exports.loadAllStudents = async (conn) => {
     try {
         const students = await conn.query(sql)
-        return {
-            data: students.rows.length ? student.rows[0] : []
-        }
+        return students.rows
     } catch (error) {
         throw error
     }

@@ -19,10 +19,10 @@ module.exports.createStudent = async(conn, data) => {
         let user = await loadUser(conn, data)
         if (!user.data.id) user = await createUser(conn, data)
         let student = await loadStudentByUserId(conn, {id_user: user.data.id})
-        if(student.data.id) throw new Error(`Estudante ${data.name ? (data.name + ' ') : ''}já cadastrado`)
-        else student = await conn.query(sql, [user.data.id, data.studentRegister])
+        if(student.data.id) throw new Error(`Student ${data.name ? (data.name + ' ') : ''}already exists`)
+        else student = await conn.query(sql, [user.data.id, data.student_register])
         return {
-            message: ` Estudante ${data.name ? (data.name + ' ') : ''}criado com sucesso! `,
+            message: ` Student ${data.name ? (data.name + ' ') : ''}successfully created! `,
             data: student.rows[0]
         }
     } catch (error) {

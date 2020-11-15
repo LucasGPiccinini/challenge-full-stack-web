@@ -1,6 +1,6 @@
 'use strict'
 
-const {loadUser} = require('./loadUser')
+const {loadUserByEmail} = require('./loadUserByEmail')
 
 const sql = `
 INSERT INTO users_grupoa 
@@ -18,11 +18,11 @@ RETURNING id
 `
 module.exports.createUser = async(conn, data) => {
     try {
-        let user = await loadUser(conn, data)
-        if (user.data.id) throw new Error(`Usuário ${data.name}, já cadastrado no sistema!`)
-        user = await conn.query(sql, [data.name, data.email, data.cpf, data.password, data.admin])
+        let user = await loadUserByEmail(conn, data.email)
+        if (user.id) throw new Error(`User ${data.name}, already exists!`)
+        user = await conn.query(sql, [data.name, data.email, data.cpf, data.password || null, data.admin || null])
         return {
-            message: ` Usuário ${data.name ? (data.name + ' ') : ''}criado com sucesso! `,
+            message: ` User ${data.name ? (data.name + ' ') : ''}successfully created! `,
             data: user.rows[0]
         }
     } catch (error) {
