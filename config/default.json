@@ -9,6 +9,8 @@
     },
     "ignoredURIs":[
         "/users/insert",
-        "/login/in"
+        "/login/in",
+        "/user/isfirstLogin",
+        "/user/savePassword"
     ]
 }
