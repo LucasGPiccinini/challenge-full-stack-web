@@ -6,18 +6,28 @@
             sort-by="name"
             class="elevation-1"
             :loading="loading"
+            :search="search"
         >
             <template v-slot:top>
-                <v-toolbar
-                    flat
-                >
+                <v-toolbar flat >
                     <v-toolbar-title>Students Manager</v-toolbar-title>
                     <v-divider
                         class="mx-4"
                         inset
                         vertical
                     ></v-divider>
-                    <v-spacer></v-spacer>
+                    <v-text-field
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        label="Search"
+                        single-line
+                        hide-details
+                    ></v-text-field>
+                    <v-divider
+                        class="mx-4"
+                        inset
+                        vertical
+                    ></v-divider>
                     <v-dialog
                         v-model="dialog"
                         max-width="500px"
@@ -152,7 +162,7 @@ import { createNamespacedHelpers } from 'vuex'
 import loadAllStudents from '../src/app/students/loadAll'
 import getStudent_register from '../src/app/students/getStudent_register'
 import createStudent from '../src/app/students/createStudent'
-import updateStudent from '../src/app/students/updateStudent'
+import updateUser from '../src/app/users/updateUser'
 
 const access = createNamespacedHelpers('access')
 
@@ -194,12 +204,13 @@ export default {
                 return pattern.test(val) || "Invalid email!";
                 },
             },
+            search: ''
         }
     },
     computed: {
         ...access.mapGetters(['user']),
         formTitle () {
-            return this.editedIndex === -1 ? 'New User' : 'Edit User'
+            return this.editedIndex === -1 ? 'New Student' : 'Edit Student'
         },
     },
     watch: {
@@ -252,9 +263,9 @@ export default {
         async save () {
             this.loading = true
             if (this.editedIndex > -1) Object.assign(this.students[this.editedIndex], this.editedItem)
-            else this.newUser ? 
+            this.newUser ? 
                 await createStudent(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent):
-                await updateStudent(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent)
+                await updateUser(this.editedItem).then(this.succesCreateStudent).catch(this.errorCreateStudent)
             this.newUser = false
             this.loading = false
             this.close()
@@ -268,7 +279,7 @@ export default {
         errorCreateStudent(response){
             this.showMessage = true,
             this.colorMessage = 'red',
-            this.messageContent = response.response.data.error
+            this.messageContent = response.message
         },
         async generateStudent_register() {
             this.loading = true
@@ -280,7 +291,7 @@ export default {
         }
     },
     async mounted() {
-        if (this.user.admin != 'S') {
+        if (this.user.admin != 'Y') {
             this.showMessage = true
             this.colorMessage = 'yellow'
             this.messageContent = 'user not allowed!'
