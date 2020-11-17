@@ -20,7 +20,7 @@ const createHttp = ({ baseURL }) => {
 
 const notAuthorized = err => {
     if (err.response.status === 401) localStorage.clear()
-    return Promise.reject(err)
+    throw new Error(err.response.data.error)
 }
 
 export const request = createHttp({
