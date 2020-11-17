@@ -32,7 +32,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/Students">
+        <v-list-item v-if="user.admin == 'Y'" to="/Students">
           <v-list-item-icon>
             <v-icon>mdi-account-group</v-icon>
           </v-list-item-icon>
@@ -100,7 +100,7 @@ export default {
     ...access.mapActions(["logout"]),
 
     async exit() {
-      await this.logout();
+      if(this.user) await this.logout();
       this.$router.push("/login");
     },
   },
