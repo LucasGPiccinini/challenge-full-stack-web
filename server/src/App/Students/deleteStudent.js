@@ -11,7 +11,7 @@ module.exports.deleteStudent = async (conn, data) => {
         await conn.query(sql, [data.id])
         await deleteUser(conn, {id:data.id_user})
         return {
-            message: ` Estudante ${data.name ? (data.name + ' ') : ''}excluído com sucesso! `,
+            message: ` Student ${data.name ? (data.name + ' ') : ''} successfully deleted! `,
         }
     } catch (error) {
         throw error

@@ -5,13 +5,13 @@ const login = require('../App/Login')
 const { validateTokenHandler } = require('../App/hendlers/validateTokenHandler')
 
 const instances = {
-    users: require('../App/Users'),
+    user: require('../App/Users'),
     student: require('../App/Students'),
 }
 
 router.get('/login/:action',  async (req, res) =>{
     try {
-        return await login(req.params.action, conn, req.headers)
+       res.send(await login(req.params.action, conn, req.headers))
     } catch (error) {
         res.status(401).send({error:error.message})
     }

@@ -1,13 +1,17 @@
 'use strict'
 
-const {createUser} = require('./createUser')
-const {updateUser} = require('./updateUser')
-const {deleteUser} = require('./deleteUser')
+const { createUser } = require('./createUser')
+const { updateUser } = require('./updateUser')
+const { deleteUser } = require('./deleteUser')
+const { loadIsFirstLogin } = require('./loadIsFirstLogin')
+const { savePassword } = require('./savePassword')
 
 const actions = {
     insert: createUser,
     update: updateUser,
-    delete: deleteUser
+    delete: deleteUser,
+    isfirstLogin: loadIsFirstLogin,
+    savePassword: savePassword
 }
 
 module.exports = async (action, conn, data) =>{

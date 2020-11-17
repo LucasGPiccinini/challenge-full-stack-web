@@ -16,7 +16,7 @@ module.exports.updateStudent = async (conn, data) => {
                                                             cpf: data.cpf,
                                                             password: data.password,
                                                             admin: data.admin})
-        const student = await conn.query(sql, [data.firstLogin, data.id])
+        const student = await conn.query(sql, ['N', data.id])
         return {
             message: ` Estudante ${data.name ? (data.name + ' ') : ''}alterado com sucesso! `,
             data: student.rows

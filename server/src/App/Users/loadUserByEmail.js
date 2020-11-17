@@ -1,11 +1,9 @@
 'use strict'
 
-'use strict'
-
 const sql = `
 SELECT *
-  FROM users_grupoa
- WHERE email = $1
+  FROM USERS_GRUPOA 
+ WHERE EMAIL = $1   
 `
 module.exports.loadUserByEmail = async (conn, email) => {
     try {

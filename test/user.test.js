@@ -3,7 +3,7 @@
 // const urlBase = "http://localhost:3002"
 
 
-// describe("Teste API users",() => {
+// describe("Teste API user",() => {
 
 //   const userInsert = {}
 //   it("Deve inserir um usuário ou retornar um erro de usuário já existente", (done) =>{
@@ -16,7 +16,7 @@
 //         "password": "123"
 //     }
 
-//     request.post({url : urlBase + "/users/insert", form: user}, (error, response, body) =>{
+//     request.post({url : urlBase + "/user/insert", form: user}, (error, response, body) =>{
 
 //         if(body){
 //             body = JSON.parse(body)
@@ -41,7 +41,7 @@
 //         "password": "1234"
 //     }
 
-//     request.post({url : urlBase + "/users/update", form: user},(error, response, body) =>{
+//     request.post({url : urlBase + "/user/update", form: user},(error, response, body) =>{
         
 //         if(body) {
 //             body = JSON.parse(body)
@@ -65,7 +65,7 @@
 //         "password": "123"
 //     }
 
-//     request.post({url : urlBase + "/users/delete", form: user},(error, response, body) =>{
+//     request.post({url : urlBase + "/user/delete", form: user},(error, response, body) =>{
 
 //         if(body) {
 //             body = JSON.parse(body)
