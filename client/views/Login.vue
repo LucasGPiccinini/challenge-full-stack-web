@@ -19,6 +19,7 @@
                 :rules="[rules.required, rules.email]"
                 v-model="access.email"
                 required
+				@change="checkIsFirstLogin()"
               />
               <v-text-field
                 prepend-icon="mdi-lock"
@@ -26,7 +27,17 @@
                 type="password"
                 :rules="[rules.required]"
                 v-model="access.password"
-                @keypress.enter="getIn()"
+                @keypress.enter="isFirstLogin ? null :  getIn()"
+                required
+              />
+              <v-text-field
+                v-if="isFirstLogin"
+                prepend-icon="mdi-lock"
+                label="Confirm Password"
+                type="password"
+                :rules="[rules.confirmPassword]"
+                v-model="access.confirmPassword"
+                @keypress.enter="save()"
                 required
               />
               <v-btn
@@ -34,9 +45,10 @@
                 class="success mt-4"
                 block
                 :disabled="!valid"
-                @click="getIn()"
+                @click="isFirstLogin ? save() : getIn()"
               >
-                Entrar
+                <span v-if="!isFirstLogin"> Sign in </span>
+                <span v-if="isFirstLogin"> Save </span> 
               </v-btn>
             </v-form>
           </v-card-text>
@@ -52,6 +64,8 @@
 <script>
 
 import { createNamespacedHelpers } from 'vuex'
+import loadIsFirstLogin from '../src/app/users/loadIsFirstLogin'
+import savePassword from '../src/app/users/savePassword'
 
 const access = createNamespacedHelpers('access')
 
@@ -72,11 +86,13 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(val) || "Invalid email!";
         },
+        confirmPassword: (val) => val === this.access.password || 'Inconsistent passwords!'
       },
       logo: require("../src/assets/logo.png"),
       showMessage: null,
       messageContent: null,
-      colorMessage: null
+      colorMessage: null,
+      isFirstLogin: false
     };
   },
   methods: {
@@ -90,6 +106,7 @@ export default {
             .catch(this.loginError)
         this.loading = false
     },
+    
     successLogin(response) {
         this.showMessage = true
         this.messageContent = response.message
@@ -100,7 +117,30 @@ export default {
         this.showMessage = true
         this.messageContent = response.message
         this.colorMessage = "red"
+    },
+    async checkIsFirstLogin() {
+        await loadIsFirstLogin(this.access.email).then(this.isFirst)
+    },
+    isFirst(response) {
+        this.access.id = response.data.data.id
+        this.access.id_user = response.data.data.id_user
+        this.access.firstLogin = response.data.data.first_login
+        this.isFirstLogin = response.data.data.first_login == 'Y'
+    },
+    async save() {
+        await savePassword(this.access).then(this.successSave)
+    },
+    successSave(response) {
+        this.showMessage = true
+        this.messageContent = response.data.data.message
+        this.colorMessage = "green"
+        setTimeout(() => {
+            this.access = {}
+            this.isFirstLogin = false
+        }, 0);
     }
+
+
   },
 };
 </script>
