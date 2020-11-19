@@ -1,7 +1,7 @@
 'use strict'
 
 const sql = `
-SELECT MAX (ID)
+SELECT MAX (ID) ID
   FROM STUDENTS_GRUPOA
 `
 module.exports.getStudent_register = async (conn) => {
