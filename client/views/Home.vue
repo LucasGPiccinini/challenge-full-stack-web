@@ -33,9 +33,15 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="user.admin == 'Y'" to="/Students">
-          <v-list-item-icon>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-icon>
+			<v-list-item-icon>
+              <v-badge
+                color="primary"
+                :content="students.length"
+				overlap
+              >
+				<v-icon>mdi-account-group</v-icon>
+              </v-badge>
+			</v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title class="text-left">
               Studants
@@ -82,6 +88,8 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
+import loadAllStudents from "../src/app/students/loadAll"
+
 const access = createNamespacedHelpers("access");
 
 export default {
@@ -91,6 +99,7 @@ export default {
       drawer: false,
       mini: false,
       exitDialog: false,
+      students: []
     };
   },
   computed: {
@@ -103,9 +112,17 @@ export default {
       if(this.user) await this.logout();
       this.$router.push("/login");
     },
+
+    async getAllStudents(){
+        await loadAllStudents().then(this.success)
+    },
+    success(response){
+        this.students = response.data.data
+    }
   },
   async mounted() {
     if (!this.user) this.$router.push("/login");
+    else await this.getAllStudents()
   },
 };
 </script>

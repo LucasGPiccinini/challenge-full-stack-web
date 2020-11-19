@@ -6,6 +6,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import loadAllStudents from '../src/app/students/loadAll' 
 
 const access = createNamespacedHelpers('access')
 
@@ -13,11 +14,22 @@ export default {
     name: 'Dashboard',
     components: {},
     data() {
-        return {}
+        return {
+            students: []
+        }
     },
     computed: {
         ...access.mapGetters(['user']),
     },
+    methods: {
+        getStudents(){
+            loadAllStudents().then(this.success)
+        },
+        success(response){
+            this.students = response.data.data
+        }
+    }
+
 }
 </script>
 <style scoped>
