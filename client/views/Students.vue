@@ -74,7 +74,7 @@
                                                 <v-text-field
                                                     v-model="editedItem.cpf"
                                                     label="CPF"
-                                                    :rules="[rules.required]"
+                                                    :rules="[rules.cpf]"
                                                     required
                                                     :disabled="!newUser"
                                                 ></v-text-field>
@@ -116,7 +116,7 @@
                                     color="blue darken-1"
                                     text
                                     @click="save"
-                                    :disabled="!valid"
+                                    :disabled="!valid || !editedItem.student_register"
                                 >
                                     Save
                                 </v-btn>
@@ -203,9 +203,13 @@ export default {
             rules: {
                 required: (val) => !!val || "Must be filled!",
                 email: (val) => {
-                const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return pattern.test(val) || "Invalid email!";
+                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return pattern.test(val) || "Invalid email!";
                 },
+                cpf: (val) => {
+                    const patern = /[0-9]{11}/
+                    return patern.test(val) || "Invalid CPF!"
+                }
             },
             search: ''
         }
