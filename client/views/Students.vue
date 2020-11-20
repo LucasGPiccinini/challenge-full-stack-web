@@ -161,7 +161,6 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import loadAllStudents from '../src/app/students/loadAll'
 import getStudent_register from '../src/app/students/getStudent_register'
 import createStudent from '../src/app/students/createStudent'
 import updateUser from '../src/app/users/updateUser'
@@ -182,14 +181,6 @@ export default {
             dialog: false,
             dialogDelete: false,
             newUser: false,
-            students: [
-                {
-                    student_register: null,
-                    name: null,
-                    email: null,
-                    cpf: null
-                }
-            ],
             editedItem: {},
             defaultItem: {},
             editedIndex: -1,
@@ -201,14 +192,14 @@ export default {
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
             rules: {
-                required: (val) => !!val || "Must be filled!",
+                required: (val) => !!val || 'Must be filled!',
                 email: (val) => {
-                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    return pattern.test(val) || "Invalid email!";
+                    const pattern = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return pattern.test(val) || 'Invalid email!';
                 },
                 cpf: (val) => {
                     const patern = /[0-9]{11}/
-                    return patern.test(val) || "Invalid CPF!"
+                    return patern.test(val) || 'Invalid CPF!'
                 }
             },
             search: ''
@@ -216,6 +207,7 @@ export default {
     },
     computed: {
         ...access.mapGetters(['user']),
+        ...access.mapGetters(['students']),
         formTitle () {
             return this.editedIndex === -1 ? 'New Student' : 'Edit Student'
         },
@@ -229,14 +221,7 @@ export default {
         },
     },
     methods: {
-        async getAllStudents() {
-            this.loading = true
-            await loadAllStudents().then(this.setStudentsResponse)
-            this.loading = false
-        },
-        setStudentsResponse(response) {
-            this.students = response.data.data
-        },
+        ...access.mapActions(['getAllStudents']),
         editItem (item) {
             this.editedIndex = this.students.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -302,7 +287,7 @@ export default {
             this.colorMessage = 'yellow'
             this.messageContent = 'user not allowed!'
             setTimeout(function(){
-                this.$router.push("/Dashboard")
+                this.$router.push('/Dashboard')
             },2000)
         }else await this.getAllStudents()
 

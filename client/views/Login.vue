@@ -70,25 +70,25 @@ import savePassword from '../src/app/users/savePassword'
 const access = createNamespacedHelpers('access')
 
 export default {
-  name: "login",
+  name: 'login',
   data() {
     return {
       loading: false,
       valid: false,
       test:'',
       access: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       },
       rules: {
-        required: (val) => !!val || "Must be filled!",
+        required: (val) => !!val || 'Must be filled!',
         email: (val) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(val) || "Invalid email!";
+          const pattern = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(val) || 'Invalid email!';
         },
         confirmPassword: (val) => val === this.access.password || 'Inconsistent passwords!'
       },
-      logo: require("../src/assets/logo.png"),
+      logo: require('../src/assets/logo.png'),
       showMessage: null,
       messageContent: null,
       colorMessage: null,
@@ -98,6 +98,7 @@ export default {
   methods: {
 
     ...access.mapActions(['login']),
+    ...access.mapActions(['getAllStudents']),
     
     async getIn() {
         this.loading = true
@@ -107,16 +108,17 @@ export default {
         this.loading = false
     },
     
-    successLogin(response) {
+    async successLogin(response) {
+        await this.getAllStudents()
         this.showMessage = true
         this.messageContent = response.message
-        this.colorMessage = "green"
+        this.colorMessage = 'green'
         this.$router.push('/dashboard')
     },
     loginError(response) {
         this.showMessage = true
         this.messageContent = response.message
-        this.colorMessage = "red"
+        this.colorMessage = 'red'
     },
     async checkIsFirstLogin() {
         await loadIsFirstLogin(this.access.email).then(this.isFirst)
@@ -133,7 +135,7 @@ export default {
     successSave(response) {
         this.showMessage = true
         this.messageContent = response.data.data.message
-        this.colorMessage = "green"
+        this.colorMessage = 'green'
         setTimeout(() => {
             this.access = {}
             this.isFirstLogin = false

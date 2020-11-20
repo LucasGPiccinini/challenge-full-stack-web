@@ -19,6 +19,7 @@ const createHttp = ({ baseURL }) => {
 }
 
 const notAuthorized = err => {
+    // if(!err.response) return 
     if (err.response.status === 401) localStorage.clear()
     throw new Error(err.response.data.error)
 }

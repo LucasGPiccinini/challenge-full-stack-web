@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="user" class="text-left">
+    <v-container v-if='user' class='text-left'>
         <h2>Welcome {{ user.name }}</h2>
     </v-container>
 </template>

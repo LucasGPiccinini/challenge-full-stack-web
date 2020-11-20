@@ -1,7 +1,7 @@
 <template>
 	<v-app>
-		<link rel="icon" href="../assets/favicon.ico" />
-		<div id="app">
+		<link rel='icon' href='../assets/favicon.ico' />
+		<div id='app'>
 			<router-view />
 		</div>
 	</v-app>

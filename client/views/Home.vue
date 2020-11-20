@@ -86,43 +86,36 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers } from 'vuex';
 
-import loadAllStudents from "../src/app/students/loadAll"
-
-const access = createNamespacedHelpers("access");
+const access = createNamespacedHelpers('access');
 
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
       drawer: false,
       mini: false,
       exitDialog: false,
-      students: []
+    //   students: []
     };
   },
   computed: {
-    ...access.mapGetters(["user"]),
+    ...access.mapGetters(['user']),
+    ...access.mapGetters(['students']),
   },
   methods: {
-    ...access.mapActions(["logout"]),
+    ...access.mapActions(['logout']),
+    ...access.mapActions(['getAllStudents']),
 
     async exit() {
       if(this.user) await this.logout();
-      this.$router.push("/login");
+      this.$router.push('/login');
     },
-
-    async getAllStudents(){
-        await loadAllStudents().then(this.success)
-    },
-    success(response){
-        this.students = response.data.data
-    }
   },
   async mounted() {
-    if (!this.user) this.$router.push("/login");
-    else await this.getAllStudents()
+    if (!this.user.id) this.$router.push('/login');
+    else if(!this.students.length) await this.getAllStudents()
   },
 };
 </script>
