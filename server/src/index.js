@@ -12,5 +12,6 @@ app.use(routes)
 module.exports = async(port) =>{
     await execute()
     app.listen(port)
+    console.log('application running on '+port)
 } 
 
