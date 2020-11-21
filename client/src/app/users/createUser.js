@@ -1,5 +1,5 @@
 import { request } from '../http'
 
 export default async (data) => {
-    await request.post('/students/create', data)
+    return await request.post('/user/insert', data)
 }
