@@ -21,7 +21,7 @@
 
 - cd client
 - npm i
-- np run serve
+- npm run serve
 
 # Decisão da arquitetura utilizada
 
