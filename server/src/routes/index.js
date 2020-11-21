@@ -25,5 +25,4 @@ router.post('/:subject/:action', validateTokenHandler, async (req, res) =>{
     }
 })
 
-
 module.exports = router

@@ -8,7 +8,7 @@
         "port":"3333"
     },
     "ignoredURIs":[
-        "/users/insert",
+        "/user/insert",
         "/login/in",
         "/user/isfirstLogin",
         "/user/savePassword"
