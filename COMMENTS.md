@@ -23,6 +23,12 @@
 - npm i
 - npm run serve
 
+## Primeiro Login
+
+- Após configurada e inicializada a aplicação, forãm adicionados scripts de inicialização que vão rodar para criar as tabelas e inserir o primeiro usuário administrador. Com isso poderá dar antamento a usabilidade.
+- User: admin@mail.com.br
+- Password: 123
+
 # Decisão da arquitetura utilizada
 
 Embora tenha me baseado na arquitetura MVC, saí um pouco do conseito, pois gosto de manter o código simples e de fácil entendimento, acaba sendo de uma facilidade maior de implementação de uma futura especificação.
