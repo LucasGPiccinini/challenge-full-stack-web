@@ -20,7 +20,7 @@ module.exports.createUser = async(conn, data) => {
     try {
         let user = await loadUserByEmail(conn, data.email)
         if (user.id) throw new Error(`Email ${data.email}, already exists!`)
-        user = await conn.query(sql, [data.name, data.email, data.cpf, data.password || null, data.admin || null])
+        user = await conn.query(sql, [data.name, data.email, data.cpf, data.password || 'null', data.admin || 'N'])
         return {
             message: ` User ${data.name ? (data.name + ' ') : ''}successfully created! `,
             data: user.rows[0]
