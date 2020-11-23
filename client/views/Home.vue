@@ -35,12 +35,14 @@
         <v-list-item v-if="user.admin == 'Y'" to="/Students">
 			<v-list-item-icon>
               <v-badge
+                v-if="students.length"
                 color="primary"
                 :content="students.length"
 				overlap
               >
 				<v-icon>mdi-account-group</v-icon>
               </v-badge>
+              <v-icon v-if="!students.length">mdi-account-group</v-icon>
 			</v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title class="text-left">
