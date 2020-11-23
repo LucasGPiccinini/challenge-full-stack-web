@@ -1,8 +1,8 @@
 <template>
-    <v-container>
+    <v-container v-if="render">
         <v-data-table
             :headers="headers"
-            :items="students"
+            :items="students || []"
             sort-by="name"
             class="elevation-1"
             :loading="loading"
@@ -184,6 +184,7 @@ export default {
             editedItem: {},
             defaultItem: {},
             editedIndex: -1,
+            render: false,
             headers: [
                 { text: 'Studant_Register', value: 'student_register' },
                 { text: 'Name', value: 'name' },
@@ -289,7 +290,10 @@ export default {
             setTimeout(function(){
                 this.$router.push('/Dashboard')
             },2000)
-        }else await this.getAllStudents()
+        }else  {
+            await this.getAllStudents()
+            this.render = true
+        }
 
     },
 }
