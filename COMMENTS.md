@@ -25,7 +25,7 @@
 
 ## Primeiro Login
 
-- Após configurada e inicializada a aplicação, forãm adicionados scripts de inicialização que vão rodar para criar as tabelas e inserir o primeiro usuário administrador. Com isso poderá dar antamento a usabilidade.
+- Após configurada e inicializada a aplicação, foram adicionados scripts de inicialização que vão rodar para criar as tabelas e inserir o primeiro usuário administrador. Com isso poderá dar antamento a usabilidade.
 - User: admin@mail.com.br
 - Password: 123
 
