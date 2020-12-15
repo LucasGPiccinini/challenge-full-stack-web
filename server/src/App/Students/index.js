@@ -3,7 +3,7 @@
 const {createStudent} = require('./createStudent')
 const {updateStudent} = require('./updateStudent')
 const {deleteStudent} = require('./deleteStudent')
-const { loadAllStudents } = require('./loadAllStudents')
+const { loadAllStudents } = require('./loadAllstudents')
 const { getStudent_register } = require('./getStudent_register')
 
 const actions = {
